@@ -59,15 +59,15 @@ S("anillos", "8.3 Anillos, unidades y divisores de cero", "Exámenes E, F, J", [
 - **Unidad**: $a$ con inverso multiplicativo. **Divisor de cero**: $a\neq0$ con $ab=0$ para algún $b\neq0$.
 - **Dominio de integridad**: sin divisores de cero ($ab=0\Rightarrow a=0$ o $b=0$).
 - **Cuerpo**: todo elemento no nulo es unidad. Cuerpo ⇒ dominio; **dominio finito ⇒ cuerpo**."""),
-    ("teo", "En $\mathbb Z_n$ todo es unidad o divisor de cero", r"""
+    ("teo", r"En $\mathbb Z_n$ todo es unidad o divisor de cero", r"""
 $\overline a$ es **unidad** ⇔ $\operatorname{mcd}(a,n)=1$ (Bézout). Si $d=\operatorname{mcd}(a,n)>1$, entonces $\overline a\cdot\overline{n/d}=\overline0$ con $\overline{n/d}\neq\overline0$: **divisor de cero**.
 Así: $\mathbb Z_n$ es dominio ⇔ es cuerpo ⇔ $n$ primo."""),
-    ("ej", "$\mathbb Z_{64}$ (exámenes E y F)", r"""
+    ("ej", r"$\mathbb Z_{64}$ (exámenes E y F)", r"""
 (a) $\overline2\cdot\overline{32}=\overline{64}=\overline0$ ⇒ no es dominio.
 (b) Si $\overline a$ no es divisor de cero, $a$ es impar (si fuera par, $\overline a\cdot\overline{32}=\overline0$), luego $\operatorname{mcd}(a,64)=1$ y es unidad.
 (c) Los divisores de cero (junto con el $\overline0$) son los pares: $\mathfrak m=\{\overline0,\overline2,\dots,\overline{62}\}=\langle\overline2\rangle$, que es un ideal.
 (d) $\mathbb Z_{64}/\mathfrak m=\{[0],[1]\}\cong\mathbb Z_2$, que es un cuerpo ⇒ $\mathfrak m$ es **maximal**."""),
-    ("ej", "$\mathbb Z_{24}$ (examen J)", r"""$7\cdot7=49\equiv1$ ⇒ $\overline7^{-1}=\overline7$. Unidades: los coprimos con $24=2^3\cdot3$: $\{1,5,7,11,13,17,19,23\}$ ($\varphi(24)=8$)."""),
+    ("ej", r"$\mathbb Z_{24}$ (examen J)", r"""$7\cdot7=49\equiv1$ ⇒ $\overline7^{-1}=\overline7$. Unidades: los coprimos con $24=2^3\cdot3$: $\{1,5,7,11,13,17,19,23\}$ ($\varphi(24)=8$)."""),
 ], "ℤₙ: anillo e ideales"),
 
 S("ideales", "8.4 Ideales, cocientes y cuerpos finitos", "Exámenes F, G, H, J", [
@@ -77,15 +77,15 @@ es decidir que todo lo de $I$ «vale 0» y trabajar con lo que sobra: es como $\
 $I\subseteq A$ es **ideal** si $(I,+)$ es subgrupo ($a,b\in I\Rightarrow a-b\in I$) **y absorbe**: $r\in A,\ a\in I\Rightarrow ra\in I$.
 $A/I=\{a+I\}$ con $[a]+[b]=[a+b]$, $[a][b]=[ab]$. $I$ es **maximal** si $I\neq A$ y no hay ideales intermedios.
 **$A/I$ es cuerpo ⇔ $I$ maximal**, y $A/I$ es dominio ⇔ $I$ primo."""),
-    ("teo", "Ideales de $\mathbb Z_n$", r"""Son exactamente $\langle\overline d\rangle$ con $d\mid n$, y $\mathbb Z_n/\langle\overline d\rangle\cong\mathbb Z_d$. Es maximal ⇔ $d$ primo.
+    ("teo", r"Ideales de $\mathbb Z_n$", r"""Son exactamente $\langle\overline d\rangle$ con $d\mid n$, y $\mathbb Z_n/\langle\overline d\rangle\cong\mathbb Z_d$. Es maximal ⇔ $d$ primo.
 Ej. (J): $I=3\mathbb Z_{24}$, $\ \mathbb Z_{24}/I=\{[0],[1],[2]\}\cong\mathbb Z_3$, cuerpo (y por tanto dominio)."""),
-    ("teo", "Cocientes de polinomios $\mathbb K[x]/(f)$", r"""
+    ("teo", r"Cocientes de polinomios $\mathbb K[x]/(f)$", r"""
 Los elementos son los **restos** de dividir entre $f$: polinomios de grado $<\operatorname{gr}f$. Con $\mathbb K=\mathbb Z_p$ hay $p^{\operatorname{gr}f}$ elementos.
 **$\mathbb Z_p[x]/(f)$ es cuerpo ⇔ $f$ es irreducible** en $\mathbb Z_p[x]$.
 Ej. (H): en $\mathbb Z_2[x]$ los tres cocientes por $x^2$, $x^2+x$ y $x^2+x+1$ tienen $2^2=4$ elementos $\{0,1,x,x+1\}$. Sólo el tercero es cuerpo;
 en el primero $x^2=0$ ($x$ es nilpotente) y en el segundo no hay nilpotentes ($x^2=x$, $(x+1)^2=x+1$) ⇒ no son isomorfos entre sí.
 Ninguno es $\cong\mathbb Z_4$: en ellos $1+1=0$ y en $\mathbb Z_4$ no."""),
-    ("ej", "$\mathbb Z_3(i)$ (examen F)", r"""$x^2+1$ no tiene raíces en $\mathbb Z_3$ ($0^2+1=1$, $1^2+1=2$, $2^2+1=2$), y al ser de grado 2 es irreducible. Por tanto
+    ("ej", r"$\mathbb Z_3(i)$ (examen F)", r"""$x^2+1$ no tiene raíces en $\mathbb Z_3$ ($0^2+1=1$, $1^2+1=2$, $2^2+1=2$), y al ser de grado 2 es irreducible. Por tanto
 $\mathbb Z_3(i)=\mathbb Z_3[x]/(x^2+1)$ es un **cuerpo de 9 elementos**. Inverso explícito: $(a+bi)^{-1}=\dfrac{a-bi}{a^2+b^2}$, y $a^2+b^2\neq0$ si $(a,b)\neq(0,0)$
 (los cuadrados de $\mathbb Z_3$ son 0 y 1)."""),
     ("teo", "Cuerpo de fracciones", r"""El **cuerpo de fracciones** de un dominio $D$ son los pares $\frac ab$ ($b\neq0$) con $\frac ab=\frac cd\iff ad=bc$. Es el menor cuerpo que contiene a $D$:
