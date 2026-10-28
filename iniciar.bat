@@ -21,5 +21,6 @@ rem si vienes de una version anterior, esto actualiza lo que haga falta (es rapi
 ".venv\Scripts\python.exe" -m pip install -q -r requirements.txt
 
 echo Abriendo MatesLucia en el navegador... (cierra esta ventana para apagarla)
+start "" /min cmd /c "timeout /t 6 /nobreak >nul & start http://localhost:8501"
 ".venv\Scripts\python.exe" -m streamlit run app.py
 pause
