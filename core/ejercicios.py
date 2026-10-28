@@ -342,7 +342,10 @@ GENERADORES = {
 
 
 def _registrar_nuevos():
-    from .ejercicios2 import NUEVOS
+    try:
+        from .ejercicios2 import NUEVOS
+    except ImportError:      # ejercicios2 se está importando primero: se registrará él solo al terminar
+        return
     for asig, d in NUEVOS.items():
         GENERADORES[asig].update(d)
 
@@ -357,6 +360,7 @@ POR_TEMA = {
     "f4": ["Combinatoria (12 formas)", "Inclusión–exclusión"],
     "f5": ["Euclides extendido / Bézout", "Sistemas de numeración"],
     "f6": ["División de polinomios", "MCD de polinomios"],
+    "f8": ["Orden en grupos"],
     "f7": ["Ecuaciones diofánticas", "Congruencias lineales", "Inversos en ℤₙ", "Fermat y Euler", "Teorema chino del resto"],
     "a1": ["Números complejos"],
     "a2": ["Límites"],

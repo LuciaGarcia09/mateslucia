@@ -27,7 +27,7 @@ def inicio():
     cabecera("🌸", "MatesLucía", "Tu laboratorio de Matemática Finita y Análisis · 1º de Ingeniería de Datos e IA. "
              "Teoría explicada con analogías, calculadoras que enseñan el paso a paso y ejercicios que se corrigen solos.",
              etiqueta="Hola, Lucía 💗",
-             chips=[f"14 temas", f"{total_sec} secciones de teoría", f"{total_herr} calculadoras",
+             chips=[f"{len(TODOS)} temas", f"{total_sec} secciones de teoría", f"{total_herr} calculadoras",
                     f"{sum(len(d) for d in GENERADORES.values())} tipos de ejercicio", "todo comprobado dos veces"])
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -48,7 +48,7 @@ def inicio():
     for asig, cols in (("Matemática Finita", "f"), ("Análisis", "a")):
         st.markdown(f"### {'📐' if cols == 'f' else '📈'} {asig}")
         temas = [t for t in TODOS if t.id.startswith(cols)]
-        for fila in (temas[:4], temas[4:]):
+        for fila in [temas[i:i + 4] for i in range(0, len(temas), 4)]:
             cs = st.columns(4)
             for c, t in zip(cs, fila):
                 with c:
@@ -76,7 +76,7 @@ def inicio():
 
 # ======================================================================== buscador
 def buscador():
-    cabecera("🔎", "Buscador", "Busca cualquier concepto en la teoría de los 14 temas (sin preocuparte por las tildes).",
+    cabecera("🔎", "Buscador", f"Busca cualquier concepto en la teoría de los {len(TODOS)} temas (sin preocuparte por las tildes).",
              etiqueta="Estudiar")
     q = st.text_input("¿Qué buscas?", placeholder="p. ej. Bézout, Raabe, palomar, convergencia uniforme, Stirling…", key="bus_q")
     if not q:
@@ -98,9 +98,10 @@ def buscador():
 
 # ======================================================================== erratas
 def erratas():
-    cabecera("🛠️", "Erratas de los apuntes", "Lo que he encontrado revisando tus apuntes y la guía, comprobado a mano sobre las "
+    cabecera("🛠️", "Erratas de los apuntes", "Lo que he encontrado revisando tus apuntes, la guía y los exámenes, comprobado a mano sobre las "
              "páginas originales. En la teoría de la app ya está corregido.", etiqueta="Estudiar")
     n = 0
+    st.markdown("### En los apuntes y la guía")
     for t in TODOS:
         for s in t.secciones:
             for b in s.bloques:
@@ -112,6 +113,14 @@ def erratas():
                         st.caption(f"📎 {s.referencia}")
                         if st.button("Ver en la teoría", key=f"err_{n}"):
                             _ir(t.id, s.id)
+    from contenido.examenes import EXAMENES
+    st.markdown("### En los exámenes y sus soluciones oficiales")
+    for e in EXAMENES:
+        for p in e.preguntas:
+            if p.errata:
+                n += 1
+                with caja("errata", f"{e.modelo.split(' (')[0]} · {e.tipo} · Pregunta {p.num}"):
+                    st.markdown(p.errata)
     if not n:
         st.success("No hay erratas registradas.")
 

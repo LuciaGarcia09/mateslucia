@@ -5,7 +5,7 @@ Arranque:  streamlit run app.py
 import streamlit as st
 
 import core  # noqa: F401  (activa la notación ln en LaTeX)
-from ui import examen, ia, extras
+from ui import examen, ia, extras, examenes
 from ui.estilo import aplicar_estilo
 from ui.temas import paginas_de
 
@@ -46,13 +46,14 @@ paginas = {
     "Matemática finita": _temas("Matemática Finita"),
     "Análisis": _temas("Análisis"),
     "Practicar": [
+        _p(examenes.pagina_examenes, "Exámenes reales", "🏆"),
         _p(examen.pagina_examen, "Modo examen", "📝"),
         _p(ia.pagina_ia, "Rincón Datos e IA", "🤖"),
     ],
     "Estudiar": [
         _p(extras.buscador, "Buscador", "🔎"),
         _p(extras.chuleta, "Chuleta", "📚"),
-        _p(extras.erratas, "Erratas de los apuntes", "🛠️"),
+        _p(extras.erratas, "Erratas", "🛠️"),
         _p(extras.mi_progreso, "Mi progreso", "💗"),
     ],
 }

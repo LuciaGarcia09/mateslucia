@@ -19,7 +19,7 @@ Se abre en el navegador (http://localhost:8501). Requiere Python 3.10 o superior
 
 ## Qué hay dentro (versión 2)
 
-**14 temas** con la misma estructura: `📖 Teoría` · `🧪 calculadoras` · `✍️ Practica`.
+**15 temas** con la misma estructura: `📖 Teoría` · `🧪 calculadoras` · `✍️ Practica`.
 
 | Matemática Finita | Análisis |
 |---|---|
@@ -30,11 +30,14 @@ Se abre en el navegador (http://localhost:8501). Requiere Python 3.10 o superior
 | 5. Enteros: división, primos, bases, mcd/mcm | 5. Sucesiones: monotonía, Bolzano–Weierstrass, Cauchy, Stolz, lím sup |
 | 6. Polinomios: división, Ruffini, mcd, irreducibles | 6. Series: criterios, absoluta/condicional, Leibniz, sumas, producto de Cauchy |
 | 7. Aritmética modular: diofánticas, ℤₙ, Fermat/Euler/Wilson, chino | 7. Sucesiones y series de funciones, criterio M, series de potencias |
+| 8. Grupos, anillos y cuerpos (Sₙ, ℤₙ, ideales, 𝔽ₚ[x]/(f)) | |
 
 - **Teoría** de todo el temario de los apuntes y la guía, con cajas de colores (💡 idea con analogía, 📘 definición, ⭐ teorema,
   ✏️ ejemplo, 🪄 truco, ⚠️ cuidado, 🛠️ errata, 🤖 en Datos e IA) y botón «💗 ya la entiendo» que guarda tu progreso.
-- **80 calculadoras** que enseñan el paso a paso y comprueban el resultado por un segundo método.
-- **25 tipos de ejercicio** generados al revés (solución primero) y corregidos al instante, por tema o en Modo examen.
+- **🏆 Exámenes reales**: los 9 modelos de Matemática Finita I (2025/26) resueltos paso a paso, con pistas, erratas avisadas,
+  «qué cae más» y simulacro con nota.
+- **83 calculadoras** que enseñan el paso a paso y comprueban el resultado por un segundo método.
+- **26 tipos de ejercicio** generados al revés (solución primero) y corregidos al instante, por tema o en Modo examen.
 - **Buscador** en toda la teoría, **Erratas de los apuntes** (verificadas sobre el PDF original), **Chuleta**, **Mi progreso**
   y el **Rincón Datos e IA**.
 
@@ -46,8 +49,8 @@ Se abre en el navegador (http://localhost:8501). Requiere Python 3.10 o superior
 pip install pytest
 python -m pytest tests
 ```
-231 tests: el núcleo matemático contra fuerza bruta y cálculo numérico, los 25 tipos de ejercicio (la respuesta buena se
-acepta y la mala no), cada una de las 80 calculadoras, cada sección de teoría y cada página de la app. Además, todas las
+251 tests: el núcleo matemático contra fuerza bruta y cálculo numérico, los 26 tipos de ejercicio (la respuesta buena se
+acepta y la mala no), cada una de las 83 calculadoras, cada examen resuelto, cada sección de teoría y cada página de la app. Además, todas las
 fórmulas de la teoría (más de 2000) se han validado con KaTeX.
 
 ## Estructura

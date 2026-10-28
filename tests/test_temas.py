@@ -39,3 +39,25 @@ def test_pagina_tema_y_practica(tid):
     at = _app(f"from ui.temas import TEMAS, pagina_tema\nm = [t for t in TEMAS if t[0].TEMA.id == '{tid}'][0]\npagina_tema(*m)\n")
     _sin_errores(at, tid)
     at.tabs[0]  # existe
+
+
+def test_pagina_examenes_todas_las_pestanas():
+    for tab in ["📚 Por examen", "🗺️ Qué cae más", "⏱️ Simulacro"]:
+        at = _app(f"import streamlit as st\nst.session_state['exr_tabs'] = '{tab}'\nfrom ui.examenes import pagina_examenes\npagina_examenes()\n")
+        _sin_errores(at, tab)
+
+
+@pytest.mark.parametrize("eid", list("ABCDEFGHJ"))
+def test_cada_examen(eid):
+    at = _app(f"import streamlit as st\nst.session_state['exr_sel'] = '{eid}'\nst.session_state['sim_sel'] = '{eid}'\n"
+              f"st.session_state['sim_fin_{eid}'] = True\nfrom ui.examenes import pagina_examenes, _simulacro\npagina_examenes()\n_simulacro()\n")
+    _sin_errores(at, eid)
+
+
+def test_herramientas_de_examenes_existen():
+    from contenido.examenes import EXAMENES
+    tabs = {(m.TEMA.id, n) for m, _, h in TEMAS for n, _ in h}
+    for e in EXAMENES:
+        for p in e.preguntas:
+            if p.herramienta:
+                assert p.herramienta in tabs, (e.id, p.num, p.herramienta)

@@ -3,10 +3,10 @@ from __future__ import annotations
 
 import streamlit as st
 
-from contenido import (f1_logica, f2_conjuntos, f3_relaciones, f4_combinatoria, f5_enteros, f6_polinomios, f7_modular,
+from contenido import (f1_logica, f2_conjuntos, f3_relaciones, f4_combinatoria, f5_enteros, f6_polinomios, f7_modular, f8_algebra,
                        a1_numeros, a2_limites, a3_derivadas, a4_integrales, a5_sucesiones, a6_series, a7_funciones)
 from core.ejercicios import POR_TEMA
-from ui import finita as F, analisis as A, herr_finita as HF, herr_analisis as HA
+from ui import finita as F, analisis as A, herr_finita as HF, herr_analisis as HA, herr_algebra as HG
 from ui.estilo import cabecera
 from ui.examen import bloque_practica
 from ui.teoria import mostrar_tema, progreso_tema
@@ -46,6 +46,8 @@ TEMAS = [
                         ("ℤₙ: tablas y unidades", HF.herr_zn), ("Fermat, Euler y Wilson", HF.herr_fermat_euler),
                         ("Potencias", F.herr_potencias), ("Chino del resto", F.herr_chino),
                         ("Sistemas mód p", HF.herr_sistemas_p), ("Varias variables", HF.herr_congruencia_varias)]),
+    (f8_algebra, "💎", [("Permutaciones", HG.herr_permutaciones), ("ℤₙ: anillo e ideales", HG.herr_zn_anillo),
+                        ("Cocientes de polinomios", HG.herr_cocientes)]),
     (a1_numeros, "🌀", [("Desigualdades y valor absoluto", A.herr_inecuaciones), ("Supremo, ínfimo y topología", HA.herr_topologia),
                         ("Vectores de ℝⁿ", HA.herr_vectores), ("Complejos", HA.herr_complejos),
                         ("Regiones del plano complejo", HA.herr_region_compleja), ("Funciones", HA.herr_funciones_reales)]),
@@ -82,7 +84,12 @@ def pagina_tema(modulo, icono, herramientas):
              chips=[f"{len(tema.secciones)} secciones de teoría", f"{len(herramientas)} calculadoras",
                     f"{hecho * 100:.0f} % entendido"])
     nombres = ["📖 Teoría"] + [f"🧪 {n}" for n, _ in herramientas] + ["✍️ Practica"]
-    pestañas = st.tabs(nombres, key=f"tabs_{tema.id}", on_change="rerun")
+    sug = st.session_state.pop("_pestaña_sugerida", None)
+    defecto = None
+    if sug and f"🧪 {sug}" in nombres:
+        st.session_state.pop(f"tabs_{tema.id}", None)
+        defecto = f"🧪 {sug}"
+    pestañas = st.tabs(nombres, key=f"tabs_{tema.id}", on_change="rerun", default=defecto)
     if pestañas[0].open:
         with pestañas[0]:
             mostrar_tema(tema, [n for n, _ in herramientas])

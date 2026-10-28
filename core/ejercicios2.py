@@ -202,6 +202,48 @@ def ej_aplicaciones(rnd) -> Ejercicio:
                      [("Todas", "t"), ("Inyectivas", "i"), ("Sobreyectivas", "s")], sol, {"t": tot, "i": iny, "s": sob}, comp)
 
 
+def ej_orden_grupo(rnd) -> Ejercicio:
+    from . import algebra as G
+    tipo = rnd.choice(["perm", "zn", "qz"])
+    if tipo == "perm":
+        n = rnd.choice([4, 5, 6])
+        while True:
+            img = list(range(1, n + 1))
+            rnd.shuffle(img)
+            f = tuple(img)
+            if f != tuple(range(1, n + 1)):
+                break
+        o = G.orden_permutacion(f)
+        lon = [len(c) for c in G.ciclos(f)]
+        assert len(G.potencias(f)) == o
+        enun = (f"Calcula el orden de la permutación $f=\\begin{{pmatrix}}{'&'.join(map(str, range(1, n + 1)))}\\\\"
+                f"{'&'.join(map(str, f))}\\end{{pmatrix}}\\in S_{n}$.")
+        sol = [f"Ciclos disjuntos: ${G.texto_ciclos(f).replace(chr(32), chr(92) + chr(32))}$, de longitudes {lon}.",
+               f"El orden es el **mcm de las longitudes**: mcm{tuple(lon)} = **{o}** (comprobado calculando las potencias)."]
+    elif tipo == "zn":
+        n = rnd.choice([12, 15, 18, 20, 24, 30, 36, 40, 64])
+        a = rnd.randint(1, n - 1)
+        o = G.orden_aditivo(a, n)
+        assert next(k for k in range(1, n + 1) if (k * a) % n == 0) == o
+        enun = f"Calcula el orden de $\\overline{{{a}}}$ en el grupo $(\\mathbb Z_{{{n}}},+)$."
+        sol = [f"$o(\\overline a)=\\dfrac{{n}}{{\\operatorname{{mcd}}(a,n)}}=\\dfrac{{{n}}}{{{gcd(a, n)}}}={o}$.",
+               f"Es el menor $k$ con ${a}k\\equiv0\\pmod{{{n}}}$."]
+    else:
+        q = rnd.choice([5, 6, 7, 8, 9, 12, 15, 20, 1000])
+        p = rnd.choice([v for v in range(-q + 1, q) if v != 0 and gcd(v, q) == 1])
+        k = rnd.choice([1, 2, 3])
+        r = sp.Rational(p * k, q * k)
+        o = G.orden_en_Q_Z(r)
+        enun = f"Calcula el orden de $\\left[\\tfrac{{{p * k}}}{{{q * k}}}\\right]$ en el grupo $\\mathbb Q/\\mathbb Z$."
+        sol = [f"Simplifica: $\\frac{{{p * k}}}{{{q * k}}}={sp.latex(r)}$. El orden es el **denominador** de la fracción irreducible: **{o}**.",
+               "Porque $k\\cdot\\frac pq\\in\\mathbb Z\\iff q\\mid kp\\iff q\\mid k$ (con $p,q$ coprimos)."]
+
+    def comp(r_):
+        v = _entero(r_["o"])
+        return (True, "¡Correcto!") if v == o else (False, "No. Recuerda: permutaciones → mcm de los ciclos; ℤₙ → n/mcd(a, n); ℚ/ℤ → denominador.")
+    return Ejercicio("Orden en grupos", enun, [("Orden", "o")], sol, {"o": o}, comp)
+
+
 # ======================================================================= ANÁLISIS
 def ej_serie(rnd) -> Ejercicio:
     p = rnd.choice([sp.Rational(1, 2), 1, sp.Rational(3, 2), 2, 3])
@@ -353,6 +395,7 @@ NUEVOS = {
         "Ecuaciones diofánticas": ej_diofantica,
         "Inversos en ℤₙ": ej_inverso,
         "Fermat y Euler": ej_potencias,
+        "Orden en grupos": ej_orden_grupo,
     },
     "Análisis": {
         "Números complejos": ej_complejos,
@@ -364,3 +407,12 @@ NUEVOS = {
         "Integrales impropias": ej_impropia,
     },
 }
+
+
+def _registrar():
+    from .ejercicios import GENERADORES
+    for asig, d in NUEVOS.items():
+        GENERADORES[asig].update(d)
+
+
+_registrar()
